@@ -5,6 +5,7 @@
 from binaryninja import PluginCommand
 
 from .modules import syscaller
+from .modules import syscall_counter
 
 # register plugin
 PluginCommand.register_for_function(
@@ -16,3 +17,14 @@ PluginCommand.register(
   "Syscaller\Decorate syscalls in all functions",
   "Annotate syscalls with arguments in all defined functions",
   syscaller.run_plugin_all)
+
+PluginCommand.register_for_function(
+  "Syscall_Counter\Record the number of syscalls in current function",
+  "Record a hashmap of the number of times a particular syscall is present in the current function, traversing with breadth-first-search",
+  syscall_counter.run_plugin_current)
+
+PluginCommand.register(
+  "Syscall_Counter\Record the number of syscalls in all functions",
+  "Record a hashmap of the number of times a particular syscall is present in all defined functions",
+  syscall_counter.run_plugin_all)
+

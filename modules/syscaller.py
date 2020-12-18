@@ -77,6 +77,10 @@ class SyscallerTask(bn.BackgroundTaskThread):
             
             args = []
             # construct arguments
+            """
+            # FIXME: IndexError: list index out of range @ 
+            # possible_arg_value = instruction.get_reg_value(self.registers[i+1])
+            # Commented out for now since we don't use the args
             for i, arg in enumerate(syscall['args']):
               possible_arg_value = instruction.get_reg_value(self.registers[i+1])
 
@@ -100,6 +104,7 @@ class SyscallerTask(bn.BackgroundTaskThread):
 
               s = '{}: {}'.format(arg['name'], value)
               args.append(s)
+            """
 
             comment = '{syscall_name}({arguments})'.format(syscall_name=syscall['name'], arguments = ", ".join(args))
             function.set_comment(instruction.address, comment)
