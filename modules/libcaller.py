@@ -33,7 +33,7 @@ class LibCallerTask(bn.BackgroundTaskThread):
 
       if current_func.symbol in self.imported_functions:
         bn.log_info(current_func.name)
-        self.libcalls.append(current_func)
+        self.libcalls.append(current_func.name)
 
       for callee in current_func.callees:
         if callee not in self.visited:

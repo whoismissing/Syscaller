@@ -6,6 +6,7 @@ from binaryninja import PluginCommand
 
 from .modules import libcaller
 from .modules import syscaller
+from .modules import syscall_enumerator
 from .modules import syscall_counter
 
 # register plugin
@@ -33,4 +34,14 @@ PluginCommand.register_for_function(
   "Libcaller\Identify library function calls called by the current function",
   "Record the library calls called by a function, traversing with breadth-first-search",
   libcaller.run_plugin_current)
+
+PluginCommand.register(
+  "Libcaller\Identify all library function calls",
+  "Identify all library function calls in the current binary",
+  libcaller.run_plugin_all)
+
+PluginCommand.register_for_function(
+  "Syscall_Enumerator\Enumerate syscalls in current function",
+  "Enumerate the syscalls and count present in the current function, resolving library calls, and traversing with breadth-first-search",
+  syscall_enumerator.run_plugin_current)
 

@@ -19,6 +19,9 @@ class SyscallTracker():
 
   def record_syscalls(self):
     syscalls = {}
+
+    # FIXME: Check if self.function is a Function object
+
     for comment in self.function.comments.values():
       if "(" in comment:
         if comment not in syscalls:

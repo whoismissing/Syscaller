@@ -51,6 +51,15 @@ def run_plugin_all(bv):
     task = SyscallerTask(bv, bv.functions, db)
     task.start()
 
+def run_plugin_get_task(bv):
+  task = None
+  if check_arch(bv.platform.name):
+    db = load_database(supported_platforms[bv.platform.name])
+
+    task = SyscallerTask(bv, bv.functions, db)
+    task.start()
+  return task
+
 
 class SyscallerTask(bn.BackgroundTaskThread):
   def __init__(self, bv, functions, db):
