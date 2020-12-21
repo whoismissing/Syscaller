@@ -10,3 +10,5 @@ Additionally, the original Syscaller plugin has been patched to exclude searchin
 #### Modules
 * [Syscall Counter](./modules/syscall_counter.py) - Record a mapping of the number of syscalls executed by a given function using breadth-first-search. Reliant on stashing the comments annotated by Syscaller.
 * [Libcaller](./modules/libcaller.py) - Record the library functions called by a given function using breadth-first-search.
+* [Syscall Enumerator](./modules/syscall_enumerator.py) - Enumerate the syscalls that a function will utilize, resolving library calls and traversing with breadth-first-search. Reliant on loading and analyzing a user-specified list of library files.
+
