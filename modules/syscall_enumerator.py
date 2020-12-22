@@ -98,6 +98,7 @@ class SyscallEnumerator(bn.BackgroundTaskThread):
     self.libcalls = None
     self.lib_bvs = []
     self.syscall_counters = []
+    self.summarized_results = {}
 
   def enumerate_syscalls(self, view):
     for func in view.functions:
@@ -120,9 +121,17 @@ class SyscallEnumerator(bn.BackgroundTaskThread):
     for lib in lib_files:
       self.analyze_lib_file(lib) 
 
-      # FIXME: Summarize syscall counters
-      bn.log_info("Counters = ")
-      bn.log_info(str(self.syscall_counters))
+  def summarize_results(self):
+    for counter in self.syscall_counters:
+      for syscall, count in counter.results.items():
+        if syscall not in self.summarized_results:
+          self.summarized_results[syscall] = count
+        else:
+          self.summarized_results[syscall] += count
+
+  def log_summarized_results(self):
+    for syscall, count in self.summarized_results.items():
+      bn.log_info("[*] {} {}".format(syscall, count))
 
   def run(self):
     libcaller = run_libcaller_blocking(self.bv, self.functions)
@@ -135,4 +144,13 @@ class SyscallEnumerator(bn.BackgroundTaskThread):
 
     if self.libcalls:
       self.analyze_lib_files(lib_files)
+
+    bn.log_info("-----------------------------")
+    bn.log_info("[*] Summarized results for syscalls recorded from imported libraries:")
+    for lib in lib_files:
+      bn.log_info("[*] Library {}".format(lib))
+    self.summarize_results()
+
+    self.log_summarized_results()
+    bn.log_info("-----------------------------")
 
