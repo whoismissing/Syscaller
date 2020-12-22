@@ -9,7 +9,7 @@ from .modules import syscaller
 from .modules import syscall_enumerator
 from .modules import syscall_counter
 
-# register plugin
+# register plugin modules
 PluginCommand.register_for_function(
   "Syscaller\Decorate syscalls in current function",
   "Annotate syscalls with arguments in current function",

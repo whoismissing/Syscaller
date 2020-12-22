@@ -32,7 +32,7 @@ class LibCallerTask(bn.BackgroundTaskThread):
       current_func = queue.pop()
 
       if current_func.symbol in self.imported_functions:
-        bn.log_info(current_func.name)
+        bn.log_info("[*] Traversing {} at 0x{:x}".format(current_func.name, current_func.start))
         self.libcalls.append(current_func.name)
 
       for callee in current_func.callees:
